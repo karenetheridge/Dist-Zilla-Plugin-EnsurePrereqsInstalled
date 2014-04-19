@@ -15,12 +15,7 @@ my $tzil = Builder->from_config(
             path(qw(source dist.ini)) => simple_ini(
                 [ GatherDir => ],
                 [ EnsurePrereqsInstalled => ],
-                [ Prereqs => {
-                        'I::Am::Not::Installed' => 0,
-                        'Test::More' => '200.0',
-                    },
-                ],
-            ),
+            ) . "\n\n; authordep I::Am::Not::Installed\n",
             path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
         },
     },
@@ -38,11 +33,9 @@ cmp_deeply(
     $tzil->log_messages,
     superbagof(
         '[EnsurePrereqsInstalled] checking that all authordeps are satisfied...',
-        '[EnsurePrereqsInstalled] checking that all prereqs are satisfied...',
-        "[EnsurePrereqsInstalled] Unsatisfied prerequisites:
-[EnsurePrereqsInstalled]     Module 'I::Am::Not::Installed' is not installed
-[EnsurePrereqsInstalled]     Installed version ($Test::More::VERSION) of Test::More is not in range \'200.0\'
-[EnsurePrereqsInstalled] To remedy, do:  cpanm I::Am::Not::Installed Test::More",
+        "[EnsurePrereqsInstalled] Unsatisfied authordeps:
+[EnsurePrereqsInstalled] I::Am::Not::Installed
+[EnsurePrereqsInstalled] To remedy, do:  cpanm I::Am::Not::Installed",
     ),
     'build was aborted, with remedy instructions',
 ) or diag 'got: ', explain $tzil->log_messages;
