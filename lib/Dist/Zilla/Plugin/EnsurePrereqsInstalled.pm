@@ -36,19 +36,34 @@ sub after_build
 
     my $prereqs_data = $self->zilla->distmeta->{prereqs};
     my $prereqs = $self->zilla->prereqs->cpan_meta_prereqs;
-    my $merged_reqs = $prereqs->merged_requirements([ keys %$prereqs_data ], ['requires']);
 
     # returns: { module name => diagnostic, ... }
-    my $result = check_requirements($merged_reqs, 'requires');
-
-    if (my @unsatisfied = sort grep { defined $result->{$_} } keys %$result)
+    my $requires_result = check_requirements(
+        $prereqs->merged_requirements([ keys %$prereqs_data ], ['requires']),
+        'requires',
+    );
+    if (my @unsatisfied = sort grep { defined $requires_result->{$_} } keys %$requires_result)
     {
         $self->log_fatal(join "\n",
             'Unsatisfied prerequisites:',
-            (map { '    ' . $result->{$_} } @unsatisfied),
+            (map { '    ' . $requires_result->{$_} } @unsatisfied),
             'To remedy, do:  cpanm ' . join(' ', @unsatisfied),
         );
     }
+
+    my $conflicts_result = check_requirements(
+        $prereqs->merged_requirements([ keys %$prereqs_data ], ['conflicts']),
+        'conflicts',
+    );
+    if (my @conflicts = sort grep { defined $conflicts_result->{$_} } keys %$conflicts_result)
+    {
+        $self->log_fatal(join "\n",
+            'Conflicts found:',
+            (map { '    ' . $conflicts_result->{$_} } @conflicts),
+            'To remedy, do:  pm-uninstall ' . join(' ', @conflicts),
+        );
+    }
+
 
     if (my $x_breaks = $self->zilla->distmeta->{x_breaks})
     {
@@ -108,6 +123,9 @@ to calling C<dzil authordeps --missing>.
 
 All prerequisites are fetched from the distribution near the end of the build
 and a final validation check is performed at that time.
+
+Only 'requires', 'conflicts' and 'x_breaks' prerequisites are checked; other
+types (e.g. 'recommends' and 'suggests' are ignored).
 
 =head1 BACKGROUND
 
