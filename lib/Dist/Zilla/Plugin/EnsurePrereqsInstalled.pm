@@ -117,6 +117,8 @@ This is a L<Dist::Zilla> plugin that verifies, during the C<dzil build>
 process, that all required prerequisites are satisfied, including developer
 prereqs.  If any prerequisites are missing, the build is aborted.
 
+=for stopwords Authordeps
+
 Authordeps (developer prerequisites that can be extracted directly from
 F<dist.ini>) are checked at the start of the build. This would be equivalent
 to calling C<dzil authordeps --missing>.
@@ -141,6 +143,8 @@ L<Dist::Zilla> itself, rather than leaving it to an optional plugin.
 =head1 CONFIGURATION OPTIONS
 
 There are no options at this time.
+
+=for Pod::Coverage before_build after_build
 
 =head1 POTENTIAL FEATURES
 
