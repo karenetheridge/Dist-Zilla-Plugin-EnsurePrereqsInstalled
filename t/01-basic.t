@@ -18,6 +18,7 @@ my $tzil = Builder->from_config(
                 [ Prereqs => {
                         'I::Am::Not::Installed' => 0,
                         'Test::More' => '200.0',
+                        'perl' => '500',
                     },
                 ],
             ),
@@ -42,7 +43,9 @@ cmp_deeply(
         "[EnsurePrereqsInstalled] Unsatisfied prerequisites:
 [EnsurePrereqsInstalled]     Module 'I::Am::Not::Installed' is not installed
 [EnsurePrereqsInstalled]     Installed version ($Test::More::VERSION) of Test::More is not in range \'200.0\'
-[EnsurePrereqsInstalled] To remedy, do:  cpanm I::Am::Not::Installed Test::More",
+[EnsurePrereqsInstalled]     Installed version ($]) of perl is not in range \'500\'
+[EnsurePrereqsInstalled] To remedy, do:  cpanm I::Am::Not::Installed Test::More
+[EnsurePrereqsInstalled] And update your perl!",
     ),
     'build was aborted, with remedy instructions',
 ) or diag 'got: ', explain $tzil->log_messages;

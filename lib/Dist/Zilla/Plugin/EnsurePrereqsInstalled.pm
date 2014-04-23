@@ -47,7 +47,8 @@ sub after_build
         $self->log_fatal(join "\n",
             'Unsatisfied prerequisites:',
             (map { '    ' . $requires_result->{$_} } @unsatisfied),
-            'To remedy, do:  cpanm ' . join(' ', @unsatisfied),
+            'To remedy, do:  cpanm ' . join(' ', grep { $_ ne 'perl' } @unsatisfied),
+            ( defined $requires_result->{perl} ? 'And update your perl!' : () ),
         );
     }
 
