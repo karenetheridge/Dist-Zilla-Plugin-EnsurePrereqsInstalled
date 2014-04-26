@@ -49,5 +49,3 @@ cmp_deeply(
 ) or diag 'got: ', explain $tzil->log_messages;
 
 done_testing;
-
-
