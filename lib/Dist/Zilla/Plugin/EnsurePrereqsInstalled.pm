@@ -14,6 +14,17 @@ use CPAN::Meta::Requirements;
 use CPAN::Meta::Check 0.007 'check_requirements';
 use namespace::autoclean;
 
+sub mvp_aliases { +{ type => 'types', relationship => 'types', relation => 'types' } }
+sub mvp_multivalue_args { qw(types) }
+
+has types => (
+    isa => 'ArrayRef[Str]',
+    lazy => 1,
+    default => sub { ['requires'] },
+    traits => ['Array'],
+    handles => { types => 'elements' },
+);
+
 sub before_build
 {
     my $self = shift;
@@ -40,9 +51,10 @@ sub after_build
 
     # returns: { module name => diagnostic, ... }
     my $requires_result = check_requirements(
-        $prereqs->merged_requirements([ keys %$prereqs_data ], ['requires']),
+        $prereqs->merged_requirements([ keys %$prereqs_data ], [ grep { $_ ne 'conflicts' } $self->types ]),
         'requires',
     );
+
     if (my @unsatisfied = sort grep { defined $requires_result->{$_} } keys %$requires_result)
     {
         $self->log_fatal(join "\n",
@@ -128,8 +140,8 @@ to calling C<dzil authordeps --missing>.
 All prerequisites are fetched from the distribution near the end of the build
 and a final validation check is performed at that time.
 
-Only 'requires', 'conflicts' and 'x_breaks' prerequisites are checked; other
-types (e.g. 'recommends' and 'suggests' are ignored).
+Only 'requires', 'conflicts' and 'x_breaks' prerequisites are checked (by
+default); other types (e.g. 'recommends' and 'suggests' are ignored).
 
 =head1 BACKGROUND
 
@@ -142,9 +154,19 @@ prerequisite that ought to have been installed first.
 It is this author's opinion that this check out to be performed by
 L<Dist::Zilla> itself, rather than leaving it to an optional plugin.
 
+=for Pod::Coverage mvp_aliases mvp_multivalue_args
+
 =head1 CONFIGURATION OPTIONS
 
-There are no options at this time.
+=head2 type
+
+    [EnsurePrereqsInstalled]
+    type = requires
+    type = recommends
+
+Indicate what type(s) of prereqs are checked (requires, recommends, suggests).
+Defaults to 'requires'; can be used more than once.  (Note that 'conflicts'
+and 'x_breaks' prereqs are always checked and this cannot be disabled.)
 
 =for Pod::Coverage before_build after_build
 
