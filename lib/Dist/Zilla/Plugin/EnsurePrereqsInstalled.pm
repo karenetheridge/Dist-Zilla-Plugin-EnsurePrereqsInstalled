@@ -10,6 +10,7 @@ with
     'Dist::Zilla::Role::AfterBuild';
 
 use CPAN::Meta 2.120920;
+use CPAN::Meta::Requirements;
 use CPAN::Meta::Check 0.007 'check_requirements';
 use namespace::autoclean;
 
