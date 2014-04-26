@@ -147,7 +147,7 @@ default); other types (e.g. 'recommends' and 'suggests' are ignored).
 
 This plugin was written for a distribution that does some fiddly work during
 file munging time that required the installation of a module, specified as an
-C<; authordep> in F<dist.ini>.  When the module is missing, an ugly exception
+C<< ; authordep Module::Name >> in F<dist.ini>.  When the module is missing, an ugly exception
 is printed, without a clear explanation that this module was a developer
 prerequisite that ought to have been installed first.
 
