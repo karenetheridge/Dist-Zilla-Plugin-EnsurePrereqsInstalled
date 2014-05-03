@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - bump declared prereq on CPAN::Meta::Prereqs
 
 0.001     2014-04-26 22:39:39Z
           - Initial release.
