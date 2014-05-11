@@ -49,6 +49,6 @@ cmp_deeply(
 [EnsurePrereqsInstalled] And update your perl!",
     ),
     'build was aborted, with remedy instructions',
-) or diag 'got: ', explain $tzil->log_messages;
+) or diag 'got log messages: ', explain $tzil->log_messages;
 
 done_testing;
