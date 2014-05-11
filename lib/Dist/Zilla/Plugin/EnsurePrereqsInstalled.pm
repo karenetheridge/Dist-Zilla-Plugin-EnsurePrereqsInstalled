@@ -46,7 +46,12 @@ sub after_build
 
     $self->log_debug("checking that all prereqs are satisfied...");
 
-    my $prereqs_data = $self->zilla->distmeta->{prereqs};
+    my $distmeta = $self->zilla->distmeta;
+
+    $self->log('dynamic_config is set: make sure you put all possible prereqs into develop prereqs so your tests are complete!')
+        if $distmeta->{dynamic_config};
+
+    my $prereqs_data = $distmeta->{prereqs};
     my $prereqs = $self->zilla->prereqs->cpan_meta_prereqs;
 
     # returns: { module name => diagnostic, ... }
@@ -79,7 +84,7 @@ sub after_build
     }
 
 
-    if (my $x_breaks = $self->zilla->distmeta->{x_breaks})
+    if (my $x_breaks = $distmeta->{x_breaks})
     {
         $self->log_debug('checking x_breaks...');
 
