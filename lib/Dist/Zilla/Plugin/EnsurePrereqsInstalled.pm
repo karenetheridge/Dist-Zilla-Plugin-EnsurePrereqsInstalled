@@ -181,6 +181,10 @@ performing the release).
 Only 'requires', 'conflicts' and 'x_breaks' prerequisites are checked (by
 default); other types (e.g. 'recommends' and 'suggests' are ignored).
 
+All prerequisite phases are checked: configure, build, test, runtime, develop
+(and any custom x_ keys that may also be present, given adequate toolchain
+support).
+
 =head1 BACKGROUND
 
 This plugin was written for a distribution that does some fiddly work during
