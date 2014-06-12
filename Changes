@@ -3,6 +3,8 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - now warning the user at build time if dynamic_config is set, as
             the prereq specification may be incomplete
+          - added new "build_phase" config, for performing the check at
+            release time rather than build
 
 0.002     2014-05-03 22:57:44Z
           - bump declared prereq on CPAN::Meta::Prereqs

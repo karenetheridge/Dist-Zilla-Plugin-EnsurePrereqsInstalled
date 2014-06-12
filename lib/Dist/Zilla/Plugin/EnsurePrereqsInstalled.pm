@@ -7,11 +7,13 @@ package Dist::Zilla::Plugin::EnsurePrereqsInstalled;
 use Moose;
 with
     'Dist::Zilla::Role::BeforeBuild',
-    'Dist::Zilla::Role::AfterBuild';
+    'Dist::Zilla::Role::AfterBuild',
+    'Dist::Zilla::Role::BeforeRelease';
 
 use CPAN::Meta::Prereqs 2.132830;   # for 'merged_requirements'
 use CPAN::Meta::Requirements;
 use CPAN::Meta::Check 0.007 'check_requirements';
+use Moose::Util::TypeConstraints;
 use namespace::autoclean;
 
 sub mvp_aliases { +{ type => 'types', relationship => 'types', relation => 'types' } }
@@ -25,7 +27,36 @@ has types => (
     handles => { types => 'elements' },
 );
 
+has build_phase => (
+    is => 'ro', isa => enum([qw(build release)]),
+    lazy => 1,
+    default => 'build',
+);
+
 sub before_build
+{
+    my $self = shift;
+
+    $self->_check_authordeps;
+}
+
+sub after_build
+{
+    my $self = shift;
+
+    return if $self->build_phase ne 'build';
+    $self->_check_prereqs;
+}
+
+sub before_release
+{
+    my $self = shift;
+
+    return if $self->build_phase ne 'release';
+    $self->_check_prereqs;
+}
+
+sub _check_authordeps
 {
     my $self = shift;
 
@@ -40,7 +71,7 @@ sub before_build
     }
 }
 
-sub after_build
+sub _check_prereqs
 {
     my $self = shift;
 
@@ -139,11 +170,13 @@ prereqs.  If any prerequisites are missing, the build is aborted.
 =for stopwords Authordeps
 
 Authordeps (developer prerequisites that can be extracted directly from
-F<dist.ini>) are checked at the start of the build. This would be equivalent
-to calling C<dzil authordeps --missing>.
+F<dist.ini>) are always checked at the start of the build. This would be
+equivalent to calling C<dzil authordeps --missing>.
 
 All prerequisites are fetched from the distribution near the end of the build
-and a final validation check is performed at that time.
+and a final validation check is performed at that time (unless C<build_phase>
+is C<release>, in which case the check is delayed until just prior to
+performing the release).
 
 Only 'requires', 'conflicts' and 'x_breaks' prerequisites are checked (by
 default); other types (e.g. 'recommends' and 'suggests' are ignored).
@@ -159,7 +192,7 @@ prerequisite that ought to have been installed first.
 It is this author's opinion that this check out to be performed by
 L<Dist::Zilla> itself, rather than leaving it to an optional plugin.
 
-=for Pod::Coverage mvp_aliases mvp_multivalue_args
+=for Pod::Coverage mvp_aliases mvp_multivalue_args before_build after_build before_release
 
 =head1 CONFIGURATION OPTIONS
 
@@ -173,7 +206,13 @@ Indicate what type(s) of prereqs are checked (requires, recommends, suggests).
 Defaults to 'requires'; can be used more than once.  (Note that 'conflicts'
 and 'x_breaks' prereqs are always checked and this cannot be disabled.)
 
-=for Pod::Coverage before_build after_build
+=head2 build_phase
+
+    [EnsurePrereqsInstalled]
+    build_phase = release
+
+Indicates what L<Dist::Zilla> phase to perform the check at - either build
+(default) or release.
 
 =head1 POTENTIAL FEATURES
 
