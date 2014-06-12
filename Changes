@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.003     2014-06-12 20:40:33Z
           - now warning the user at build time if dynamic_config is set, as
             the prereq specification may be incomplete
           - added new "build_phase" config, for performing the check at
