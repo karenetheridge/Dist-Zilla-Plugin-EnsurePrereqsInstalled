@@ -163,7 +163,7 @@ L<Dist::Zilla> itself, rather than leaving it to an optional plugin.
 
 =head1 CONFIGURATION OPTIONS
 
-=head2 type
+=head2 type (or relationship)
 
     [EnsurePrereqsInstalled]
     type = requires
