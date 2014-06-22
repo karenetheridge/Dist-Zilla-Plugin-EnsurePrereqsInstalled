@@ -78,17 +78,19 @@ sub _check_prereqs
 
     $self->log_debug("checking that all prereqs are satisfied...");
 
+    # this is safe to request, since we only run this method in phases after
+    # prereqs and distmeta has been calculated
     my $distmeta = $self->zilla->distmeta;
 
     $self->log('dynamic_config is set: make sure you put all possible prereqs into develop prereqs so your tests are complete!')
         if $distmeta->{dynamic_config};
 
-    my $prereqs_data = $distmeta->{prereqs};
+    my @prereqs_relationships = keys %{$distmeta->{prereqs}};
     my $prereqs = $self->zilla->prereqs->cpan_meta_prereqs;
 
     # returns: { module name => diagnostic, ... }
     my $requires_result = check_requirements(
-        $prereqs->merged_requirements([ keys %$prereqs_data ], [ grep { $_ ne 'conflicts' } $self->types ]),
+        $prereqs->merged_requirements(\@prereqs_relationships, [ grep { $_ ne 'conflicts' } $self->types ]),
         'requires',
     );
 
@@ -103,7 +105,7 @@ sub _check_prereqs
     }
 
     my $conflicts_result = check_requirements(
-        $prereqs->merged_requirements([ keys %$prereqs_data ], ['conflicts']),
+        $prereqs->merged_requirements(\@prereqs_relationships, ['conflicts']),
         'conflicts',
     );
     if (my @conflicts = sort grep { defined $conflicts_result->{$_} } keys %$conflicts_result)
