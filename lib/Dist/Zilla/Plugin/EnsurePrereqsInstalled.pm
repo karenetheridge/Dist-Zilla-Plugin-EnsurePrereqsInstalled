@@ -19,19 +19,19 @@ use namespace::autoclean;
 
 sub mvp_aliases {
     +{
-        type => 'types',
-        relationship => 'types',
-        relation => 'types',
+        type => 'prereq_types',
+        relationship => 'prereq_types',
+        relation => 'prereq_types',
     }
 }
-sub mvp_multivalue_args { qw(types) }
+sub mvp_multivalue_args { qw(prereq_types) }
 
-has types => (
+has prereq_types => (
     isa => 'ArrayRef[Str]',
     lazy => 1,
     default => sub { ['requires'] },
     traits => ['Array'],
-    handles => { types => 'elements' },
+    handles => { prereq_types => 'elements' },
 );
 
 has build_phase => (
@@ -96,7 +96,7 @@ sub _check_prereqs
 
     # returns: { module name => diagnostic, ... }
     my $requires_result = check_requirements(
-        $prereqs->merged_requirements(\@prereqs_relationships, [ grep { $_ ne 'conflicts' } $self->types ]),
+        $prereqs->merged_requirements(\@prereqs_relationships, [ grep { $_ ne 'conflicts' } $self->prereq_types ]),
         'requires',
     );
 
@@ -209,13 +209,13 @@ L<Dist::Zilla> itself, rather than leaving it to an optional plugin.
 
 =head1 CONFIGURATION OPTIONS
 
-=head2 type (or relationship)
+=head2 type (or relationship, prereq_type)
 
     [EnsurePrereqsInstalled]
     type = requires
     type = recommends
 
-Indicate what type(s) of prereqs are checked (requires, recommends, suggests).
+Indicate what relationship type(s) of prereqs are checked (requires, recommends, suggests).
 Defaults to 'requires'; can be used more than once.  (Note that 'conflicts'
 and 'x_breaks' prereqs are always checked and this cannot be disabled.)
 
