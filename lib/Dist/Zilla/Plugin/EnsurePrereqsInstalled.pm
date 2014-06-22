@@ -91,12 +91,12 @@ sub _check_prereqs
     $self->log('dynamic_config is set: make sure you put all possible prereqs into develop prereqs so your tests are complete!')
         if $distmeta->{dynamic_config};
 
-    my @prereqs_relationships = keys %{$distmeta->{prereqs}};
+    my @prereq_phases = keys %{$distmeta->{prereqs}};
     my $prereqs = $self->zilla->prereqs->cpan_meta_prereqs;
 
     # returns: { module name => diagnostic, ... }
     my $requires_result = check_requirements(
-        $prereqs->merged_requirements(\@prereqs_relationships, [ grep { $_ ne 'conflicts' } $self->prereq_types ]),
+        $prereqs->merged_requirements(\@prereq_phases, [ grep { $_ ne 'conflicts' } $self->prereq_types ]),
         'requires',
     );
 
@@ -111,7 +111,7 @@ sub _check_prereqs
     }
 
     my $conflicts_result = check_requirements(
-        $prereqs->merged_requirements(\@prereqs_relationships, ['conflicts']),
+        $prereqs->merged_requirements(\@prereq_phases, ['conflicts']),
         'conflicts',
     );
     if (my @conflicts = sort grep { defined $conflicts_result->{$_} } keys %$conflicts_result)
