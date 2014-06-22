@@ -215,7 +215,7 @@ L<Dist::Zilla> itself, rather than leaving it to an optional plugin.
     type = requires
     type = recommends
 
-Indicate what relationship type(s) of prereqs are checked (requires, recommends, suggests).
+Indicate what relationship type(s) of prereqs are checked (such as requires, recommends, suggests).
 Defaults to 'requires'; can be used more than once.  (Note that 'conflicts'
 and 'x_breaks' prereqs are always checked and this cannot be disabled.)
 
@@ -253,6 +253,7 @@ These plugins all do somewhat similar and overlapping things, but are all useful
 
 =begin :list
 
+* L<CPAN::Meta::Spec/Prereq Spec>
 * L<Dist::Zilla::Plugin::PromptIfStale>
 * L<Dist::Zilla::Plugin::CheckPrereqsIndexed>
 * L<Dist::Zilla::Plugin::Test::ReportPrereqs>
