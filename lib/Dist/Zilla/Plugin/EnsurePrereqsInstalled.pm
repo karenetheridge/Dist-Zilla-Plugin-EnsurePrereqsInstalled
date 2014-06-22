@@ -17,7 +17,13 @@ use CPAN::Meta::Check 0.007 'check_requirements';
 use Moose::Util::TypeConstraints;
 use namespace::autoclean;
 
-sub mvp_aliases { +{ type => 'types', relationship => 'types', relation => 'types' } }
+sub mvp_aliases {
+    +{
+        type => 'types',
+        relationship => 'types',
+        relation => 'types',
+    }
+}
 sub mvp_multivalue_args { qw(types) }
 
 has types => (
