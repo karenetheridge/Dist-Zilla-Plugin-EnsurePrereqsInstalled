@@ -48,7 +48,7 @@ cmp_deeply(
 [EnsurePrereqsInstalled] To remedy, do:  cpanm I::Am::Not::Installed Test::More
 [EnsurePrereqsInstalled] And update your perl!\E$/ms),
     ),
-    'build was aborted, with remedy instructions',
+    'build was aborted: all prerequisites were checked',
 ) or diag 'got log messages: ', explain $tzil->log_messages;
 
 done_testing;

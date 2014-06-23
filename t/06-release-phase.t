@@ -56,7 +56,7 @@ cmp_deeply(
 [EnsurePrereqsInstalled] To remedy, do:  cpanm I::Am::Not::Installed Test::More
 [EnsurePrereqsInstalled] And update your perl!\E$/ms),
     ),
-    'release was aborted, with remedy instructions',
+    'release was aborted: checks delayed until the release phase',
 ) or diag 'got log messages: ', explain $tzil->log_messages;
 
 done_testing;

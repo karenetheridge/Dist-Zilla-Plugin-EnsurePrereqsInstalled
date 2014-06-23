@@ -40,7 +40,7 @@ cmp_deeply(
 [EnsurePrereqsInstalled]     Installed version ($Test::More::VERSION) of Test::More is in range '<= 200.0'
 [EnsurePrereqsInstalled] To remedy, do:  pm-uninstall Test::More",
     ),
-    'build was aborted, with remedy instructions',
+    'build was aborted: conflict prereqs were checked',
 ) or diag 'got log messages: ', explain $tzil->log_messages;
 
 done_testing;

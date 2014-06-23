@@ -42,7 +42,7 @@ cmp_deeply(
 [EnsurePrereqsInstalled]     Installed version ($Test::More::VERSION) of Test::More is not in range \'200.0\'
 [EnsurePrereqsInstalled] To remedy, do:  cpanm I::Am::Not::Installed Test::More",
     ),
-    'build was aborted, with remedy instructions',
+    'build was aborted: custom relationships are checked',
 ) or diag 'got log messages: ', explain $tzil->log_messages;
 
 done_testing;
