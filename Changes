@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.005     2014-07-22 15:17:05Z
           - "types" option now also available as "prereq_types", for clarity
           - fix test regexps that fail when Test::More is a dev release
 
