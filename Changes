@@ -2,6 +2,7 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
           - "types" option now also available as "prereq_types", for clarity
+          - fix test regexps that fail when Test::More is a dev release
 
 0.004     2014-06-22 00:04:06Z
           - fix tests that fail with CPAN::Meta::Check 0.009
