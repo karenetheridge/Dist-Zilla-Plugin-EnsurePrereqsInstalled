@@ -40,6 +40,10 @@ has build_phase => (
     default => 'build',
 );
 
+# there is nothing in this plugin that should affect the outcome of the build
+# -- its configuration is not significant.
+#around dump_config => sub { };
+
 sub before_build
 {
     my $self = shift;
