@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.006     2014-08-09 03:27:46Z (TRIAL RELEASE)
           - dump a few more diagnostics on test failure, to try to identify
             the problem with dev releases of Test::More
 
