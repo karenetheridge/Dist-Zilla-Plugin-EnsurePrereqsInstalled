@@ -235,13 +235,10 @@ Indicates what L<Dist::Zilla> phase to perform the check at - either build
 
 ...if anyone has an interest:
 
-=begin :list
-
+=for :list
 * option to exclude modules from being checked
 * option to prompt to continue instead of dying on unsatisfied prereqs
 * option for different treatment (warn? prompt?) for recommended, suggested prereqs
-
-=end :list
 
 =head1 SUPPORT
 
@@ -255,15 +252,12 @@ I am also usually active on irc, as 'ether' at C<irc.perl.org>.
 
 These plugins all do somewhat similar and overlapping things, but are all useful in their own way:
 
-=begin :list
-
+=for :list
 * L<CPAN::Meta::Spec/Prereq Spec>
 * L<Dist::Zilla::Plugin::PromptIfStale>
 * L<Dist::Zilla::Plugin::CheckPrereqsIndexed>
 * L<Dist::Zilla::Plugin::Test::ReportPrereqs>
 * L<Dist::Zilla::Plugin::Test::CheckDeps>
 * L<Dist::Zilla::Plugin::Test::CheckBreaks>
-
-=end :list
 
 =cut
