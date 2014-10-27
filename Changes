@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - use newer Dist::Zilla::Util::AuthorDeps to avoid using Path::Class
 
 0.007     2014-09-27 03:41:56Z
           - make tests work in the presence of Test::More 1.301001_050

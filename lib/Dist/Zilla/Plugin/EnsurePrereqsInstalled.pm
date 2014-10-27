@@ -153,10 +153,10 @@ sub _get_authordeps
     my $self = shift;
 
     require Dist::Zilla::Util::AuthorDeps;
-    require Path::Class;
+    Dist::Zilla::Util::AuthorDeps->VERSION(5.021);
     Dist::Zilla::Util::AuthorDeps::format_author_deps(
         Dist::Zilla::Util::AuthorDeps::extract_author_deps(
-            Path::Class::dir('.'),  # ugh!
+            '.',                    # repository root
             1,                      # --missing
         ),
         (),                         # --versions
