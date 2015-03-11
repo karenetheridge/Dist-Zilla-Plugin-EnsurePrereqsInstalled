@@ -49,4 +49,7 @@ cmp_deeply(
     'build was aborted: custom x_* prereq phases are checked',
 ) or diag 'got log messages: ', explain $tzil->log_messages;
 
+diag 'got log messages: ', explain $tzil->log_messages
+    if not Test::Builder->new->is_passing;
+
 done_testing;

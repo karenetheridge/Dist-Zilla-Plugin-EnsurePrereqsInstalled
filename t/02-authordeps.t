@@ -42,6 +42,9 @@ foreach my $build_phase (qw(build release))
         ),
         $build_phase . ' was aborted: authordeps and all prerequisites were checked',
     ) or diag 'got log messages: ', explain $tzil->log_messages;
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 done_testing;
