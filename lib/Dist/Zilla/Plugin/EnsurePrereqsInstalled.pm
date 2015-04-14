@@ -16,7 +16,7 @@ with
 use CPAN::Meta::Prereqs 2.132830;   # for 'merged_requirements'
 use CPAN::Meta::Requirements;
 use CPAN::Meta::Check 0.007 'check_requirements';
-use Moose::Util::TypeConstraints;
+use Moose::Util::TypeConstraints 'enum';
 use namespace::autoclean;
 
 sub mvp_aliases {
