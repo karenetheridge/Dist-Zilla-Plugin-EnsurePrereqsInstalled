@@ -5,6 +5,8 @@ package Dist::Zilla::Plugin::EnsurePrereqsInstalled;
 # KEYWORDS: plugin toolchain prerequisites dependencies modules metadata
 # vim: set ts=8 sw=4 tw=78 et :
 
+our $VERSION = '0.009';
+
 use Moose;
 with
     'Dist::Zilla::Role::BeforeBuild',
