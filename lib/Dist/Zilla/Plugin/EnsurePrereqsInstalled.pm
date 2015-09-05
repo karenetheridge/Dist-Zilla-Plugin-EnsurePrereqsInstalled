@@ -3,7 +3,7 @@ use warnings;
 package Dist::Zilla::Plugin::EnsurePrereqsInstalled;
 # ABSTRACT: Ensure at build time that all prereqs, including developer, are satisfied
 # KEYWORDS: plugin toolchain prerequisites dependencies modules metadata
-# vim: set ts=8 sts=4 sw=4 tw=78 et :
+# vim: set ts=8 sts=4 sw=4 tw=115 et :
 
 our $VERSION = '0.009';
 
