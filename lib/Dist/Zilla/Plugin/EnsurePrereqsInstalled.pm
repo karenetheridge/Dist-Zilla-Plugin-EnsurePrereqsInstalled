@@ -79,7 +79,7 @@ sub _check_authordeps
         $self->log_fatal(join "\n",
             'Unsatisfied authordeps:',
             $unsatisfied,
-            'To remedy, do:  cpanm ' . join(' ', split("\n", $unsatisfied)),
+            'To remedy, do:  cpanm ' . join(' ', split(/\n/, $unsatisfied)),
         );
     }
 }
