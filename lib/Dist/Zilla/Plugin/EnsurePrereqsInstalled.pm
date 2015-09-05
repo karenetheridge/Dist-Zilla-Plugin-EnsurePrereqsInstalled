@@ -242,14 +242,6 @@ Indicates what L<Dist::Zilla> phase to perform the check at - either build
 * option to prompt to continue instead of dying on unsatisfied prereqs
 * option for different treatment (warn? prompt?) for recommended, suggested prereqs
 
-=head1 SUPPORT
-
-=for stopwords irc
-
-Bugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-EnsurePrereqsInstalled>
-(or L<bug-Dist-Zilla-Plugin-EnsurePrereqsInstalled@rt.cpan.org|mailto:bug-Dist-Zilla-Plugin-EnsurePrereqsInstalled@rt.cpan.org>).
-I am also usually active on irc, as 'ether' at C<irc.perl.org>.
-
 =head1 SEE ALSO
 
 These plugins all do somewhat similar and overlapping things, but are all useful in their own way:
