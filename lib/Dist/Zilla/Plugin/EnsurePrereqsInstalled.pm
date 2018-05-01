@@ -5,7 +5,7 @@ package Dist::Zilla::Plugin::EnsurePrereqsInstalled;
 # ABSTRACT: Ensure at build time that all prereqs, including developer, are satisfied
 # KEYWORDS: plugin toolchain prerequisites dependencies modules metadata
 
-our $VERSION = '0.009';
+our $VERSION = '0.010';
 
 use Moose;
 with
