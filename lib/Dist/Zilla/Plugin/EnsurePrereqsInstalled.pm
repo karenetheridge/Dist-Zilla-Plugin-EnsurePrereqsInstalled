@@ -169,7 +169,7 @@ sub _get_authordeps
     Dist::Zilla::Util::AuthorDeps->VERSION(5.021);
     Dist::Zilla::Util::AuthorDeps::format_author_deps(
         Dist::Zilla::Util::AuthorDeps::extract_author_deps(
-            '.',                    # repository root
+            $self->zilla->root,     # repository root
             1,                      # --missing
         ),
         (),                         # --versions
