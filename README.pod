@@ -8,7 +8,7 @@ Dist::Zilla::Plugin::EnsurePrereqsInstalled - Ensure at build time that all prer
 
 =head1 VERSION
 
-version 0.008
+version 0.009
 
 =head1 SYNOPSIS
 
@@ -48,7 +48,7 @@ C<< ; authordep Module::Name >> in F<dist.ini>.  When the module is missing, an 
 is printed, without a clear explanation that this module was a developer
 prerequisite that ought to have been installed first.
 
-It is this author's opinion that this check out to be performed by
+It is this author's opinion that this check ought to be performed by
 L<Dist::Zilla> itself, rather than leaving it to an optional plugin.
 
 =for Pod::Coverage mvp_aliases mvp_multivalue_args before_build after_build before_release
@@ -93,14 +93,6 @@ option for different treatment (warn? prompt?) for recommended, suggested prereq
 
 =back
 
-=head1 SUPPORT
-
-=for stopwords irc
-
-Bugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-EnsurePrereqsInstalled>
-(or L<bug-Dist-Zilla-Plugin-EnsurePrereqsInstalled@rt.cpan.org|mailto:bug-Dist-Zilla-Plugin-EnsurePrereqsInstalled@rt.cpan.org>).
-I am also usually active on irc, as 'ether' at C<irc.perl.org>.
-
 =head1 SEE ALSO
 
 These plugins all do somewhat similar and overlapping things, but are all useful in their own way:
@@ -133,11 +125,24 @@ L<Dist::Zilla::Plugin::Test::CheckBreaks>
 
 =back
 
+=head1 SUPPORT
+
+Bugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-EnsurePrereqsInstalled>
+(or L<bug-Dist-Zilla-Plugin-EnsurePrereqsInstalled@rt.cpan.org|mailto:bug-Dist-Zilla-Plugin-EnsurePrereqsInstalled@rt.cpan.org>).
+
+There is also a mailing list available for users of this distribution, at
+L<http://dzil.org/#mailing-list>.
+
+There is also an irc channel available for users of this distribution, at
+L<C<#distzilla> on C<irc.perl.org>|irc://irc.perl.org/#distzilla>.
+
+I am also usually active on irc, as 'ether' at C<irc.perl.org>.
+
 =head1 AUTHOR
 
 Karen Etheridge <ether@cpan.org>
 
-=head1 COPYRIGHT AND LICENSE
+=head1 COPYRIGHT AND LICENCE
 
 This software is copyright (c) 2014 by Karen Etheridge.
 
