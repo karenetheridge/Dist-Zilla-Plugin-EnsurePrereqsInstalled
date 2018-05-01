@@ -42,8 +42,8 @@ my $TM_VERSION = Module::Metadata->new_from_module('Test::More')->version;
 
 my $re;
 cmp_deeply(
-    $tzil->log_messages,
-    superbagof(
+    [ grep { /^\[EnsurePrereqsInstalled\]/ } @{ $tzil->log_messages } ],
+    [
         '[EnsurePrereqsInstalled] checking that all authordeps are satisfied...',
         '[EnsurePrereqsInstalled] checking that all prereqs are satisfied...',
         re(do { $re = qr/^\Q[EnsurePrereqsInstalled] Unsatisfied prerequisites:
@@ -52,7 +52,7 @@ cmp_deeply(
 [EnsurePrereqsInstalled]     \E(Installed version \($]\) of perl is not in range '500'|Your Perl \($]\) is not in the range '500')\Q
 [EnsurePrereqsInstalled] To remedy, do:  cpanm I::Am::Not::Installed Test::More
 [EnsurePrereqsInstalled] And update your perl!\E$/ms }),
-    ),
+    ],
     'build was aborted: all prerequisites were checked',
 ) or diag 'got log messages: ', explain $tzil->log_messages,
     'expected: ', $re;

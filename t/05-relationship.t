@@ -38,15 +38,15 @@ my $TM_VERSION = Module::Metadata->new_from_module('Test::More')->version;
 
 my $re;
 cmp_deeply(
-    $tzil->log_messages,
-    superbagof(
+    [ grep { /^\[EnsurePrereqsInstalled\]/ } @{ $tzil->log_messages } ],
+    [
         '[EnsurePrereqsInstalled] checking that all authordeps are satisfied...',
         '[EnsurePrereqsInstalled] checking that all prereqs are satisfied...',
         re(do { $re = qr/^\Q[EnsurePrereqsInstalled] Unsatisfied prerequisites:
 [EnsurePrereqsInstalled]     Module 'I::Am::Not::Installed' is not installed
 [EnsurePrereqsInstalled]     Installed version (\E$TM_VERSION\Q) of Test::More is not in range '200.0'
 [EnsurePrereqsInstalled] To remedy, do:  cpanm I::Am::Not::Installed Test::More\E$/ms }),
-    ),
+    ],
     'build was aborted: custom relationships are checked',
 ) or diag 'got log messages: ', explain $tzil->log_messages,
     'expected: ', $re;

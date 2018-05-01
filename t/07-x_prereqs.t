@@ -46,14 +46,14 @@ like(
 );
 
 cmp_deeply(
-    $tzil->log_messages,
-    superbagof(
+    [ grep { /^\[EnsurePrereqsInstalled\]/ } @{ $tzil->log_messages } ],
+    [
         '[EnsurePrereqsInstalled] checking that all authordeps are satisfied...',
         '[EnsurePrereqsInstalled] checking that all prereqs are satisfied...',
         "[EnsurePrereqsInstalled] Unsatisfied prerequisites:
 [EnsurePrereqsInstalled]     Module 'I::Am::Not::Installed' is not installed
 [EnsurePrereqsInstalled] To remedy, do:  cpanm I::Am::Not::Installed",
-    ),
+    ],
     'build was aborted: custom x_* prereq phases are checked',
 ) or diag 'got log messages: ', explain $tzil->log_messages;
 

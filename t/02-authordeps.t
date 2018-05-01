@@ -33,13 +33,13 @@ foreach my $build_phase (qw(build release))
     );
 
     cmp_deeply(
-        $tzil->log_messages,
-        superbagof(
+        [ grep { /^\[EnsurePrereqsInstalled\]/ } @{ $tzil->log_messages } ],
+        [
             '[EnsurePrereqsInstalled] checking that all authordeps are satisfied...',
             '[EnsurePrereqsInstalled] Unsatisfied authordeps:
 [EnsurePrereqsInstalled] I::Am::Not::Installed
 [EnsurePrereqsInstalled] To remedy, do:  cpanm I::Am::Not::Installed',
-        ),
+        ],
         $build_phase . ' was aborted: authordeps and all prerequisites were checked',
     ) or diag 'got log messages: ', explain $tzil->log_messages;
 
