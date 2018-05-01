@@ -219,7 +219,7 @@ C<< ; authordep Module::Name >> in F<dist.ini>.  When the module is missing, an 
 is printed, without a clear explanation that this module was a developer
 prerequisite that ought to have been installed first.
 
-It is this author's opinion that this check out to be performed by
+It is this author's opinion that this check ought to be performed by
 L<Dist::Zilla> itself, rather than leaving it to an optional plugin.
 
 =for Pod::Coverage mvp_aliases mvp_multivalue_args before_build after_build before_release
