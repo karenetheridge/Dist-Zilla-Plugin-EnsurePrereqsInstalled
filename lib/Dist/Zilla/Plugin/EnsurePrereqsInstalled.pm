@@ -113,16 +113,16 @@ sub _check_prereqs
 
     # returns: { module name => diagnostic, ... }
     my $requires_result = check_requirements(
-        $prereqs->merged_requirements(\@prereq_phases, [ grep { $_ ne 'conflicts' } $self->prereq_types ]),
+        $prereqs->merged_requirements(\@prereq_phases, [ grep $_ ne 'conflicts', $self->prereq_types ]),
         'requires',
     );
 
-    if (my @unsatisfied = sort grep { defined $requires_result->{$_} } keys %$requires_result)
+    if (my @unsatisfied = sort grep defined $requires_result->{$_}, keys %$requires_result)
     {
         $self->log_fatal(join "\n",
             'Unsatisfied prerequisites:',
-            (map { '    ' . $requires_result->{$_} } @unsatisfied),
-            'To remedy, do:  cpanm ' . join(' ', grep { $_ ne 'perl' } @unsatisfied),
+            (map '    '.$requires_result->{$_}, @unsatisfied),
+            'To remedy, do:  cpanm ' . join(' ', grep $_ ne 'perl', @unsatisfied),
             ( defined $requires_result->{perl} ? 'And update your perl!' : () ),
         );
     }
@@ -131,11 +131,11 @@ sub _check_prereqs
         $prereqs->merged_requirements(\@prereq_phases, ['conflicts']),
         'conflicts',
     );
-    if (my @conflicts = sort grep { defined $conflicts_result->{$_} } keys %$conflicts_result)
+    if (my @conflicts = sort grep defined $conflicts_result->{$_}, keys %$conflicts_result)
     {
         $self->log_fatal(join "\n",
             'Conflicts found:',
-            (map { '    ' . $conflicts_result->{$_} } @conflicts),
+            (map '    '.$conflicts_result->{$_}, @conflicts),
             'To remedy, do:  pm-uninstall ' . join(' ', @conflicts),
         );
     }
@@ -150,11 +150,11 @@ sub _check_prereqs
 
         my $result = check_requirements($reqs, 'conflicts');
 
-        if (my @breaks = sort grep { defined $result->{$_} } keys %$result)
+        if (my @breaks = sort grep defined $result->{$_}, keys %$result)
         {
             $self->log_fatal(join "\n",
                 'Breakages found:',
-                (map { '    ' . $result->{$_} } @breaks),
+                (map '    '.$result->{$_}, @breaks),
                 'To remedy, do:  cpanm ' . join(' ', @breaks),
             );
         }

@@ -46,7 +46,7 @@ like(
 );
 
 cmp_deeply(
-    [ grep { /^\[EnsurePrereqsInstalled\]/ } @{ $tzil->log_messages } ],
+    [ grep /^\[EnsurePrereqsInstalled\]/, @{ $tzil->log_messages } ],
     [
         '[EnsurePrereqsInstalled] checking that all authordeps are satisfied...',
         '[EnsurePrereqsInstalled] checking that all prereqs are satisfied...',
